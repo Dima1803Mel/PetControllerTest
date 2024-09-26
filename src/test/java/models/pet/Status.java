@@ -1,2 +1,5 @@
-package models.pet;public class Status {
+package models.pet;
+
+public enum Status {
+    available, pending, sold
 }
