@@ -110,7 +110,7 @@ public class PetTest {
     }
 
     @Test
-    @Description("Проверка кода ответа при запросу Put")
+    @Description("Проверка кода ответа при запросе Put")
     void uploadPetCheck() {
         Pet pet = DataGenerator.generateFullDataPet();
         int petId = petService.createPet(pet)
