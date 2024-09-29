@@ -3,7 +3,7 @@ package Assertions;
 import Assertions.Conditions.StatusCondition;
 import Assertions.Conditions.StatusCodeCondition;
 
-public class Conditions {
+public class conditions {
     public static StatusCondition statusCondition(int code, String message) {
         return new StatusCondition(code);
     }

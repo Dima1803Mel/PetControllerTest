@@ -1,6 +1,6 @@
 package tests;
 
-import Assertions.Conditions;
+import Assertions.conditions;
 import models.info.ApiResponse;
 import models.pet.Pet;
 import models.pet.Status;
@@ -31,7 +31,7 @@ public class PetTest {
         Pet pet = DataGenerator.generateFullDataPet();
 
         petService.createPet(pet)
-                .should(Conditions.statusCode(200));
+                .should(conditions.statusCode(200));
     }
 
     @Test
@@ -39,11 +39,11 @@ public class PetTest {
         Pet pet = DataGenerator.generateFullDataPet();
 
         int petId = petService.createPet(pet)
-                .should(Conditions.statusCode(200))
+                .should(conditions.statusCode(200))
                 .as(Pet.class).getId();
 
         petService.getPetById(petId)
-                .should(Conditions.statusCode(200));
+                .should(conditions.statusCode(200));
 
     }
 
@@ -52,7 +52,7 @@ public class PetTest {
         Pet pet = DataGenerator.generateFullDataPet();
 
         int petId = petService.createPet(pet)
-                .should(Conditions.statusCode(200))
+                .should(conditions.statusCode(200))
                 .as(Pet.class).getId();
 
         ApiResponse info = petService.deletePet(petId)
@@ -65,11 +65,11 @@ public class PetTest {
     void updatePetNameStatus() {
         Pet pet = DataGenerator.generateFullDataPet();
         int petId = petService.createPet(pet)
-                .should(Conditions.statusCode(200))
+                .should(conditions.statusCode(200))
                 .as(Pet.class).getId();
 
         ApiResponse info = petService.updatePetNameStatus(petId,"asdasd", Status.sold)
-                .should(Conditions.statusCode(200))
+                .should(conditions.statusCode(200))
                 .as(ApiResponse.class);
 
         Assertions.assertEquals(200, info.getCode());
@@ -82,10 +82,10 @@ public class PetTest {
         File file = new File("src/test/resources/Chainsaw-Man.jpg");
 
         int petId = petService.createPet(pet)
-                .should(Conditions.statusCode(200))
+                .should(conditions.statusCode(200))
                 .as(Pet.class).getId();
 
         petService.uploadImage(petId, file)
-                .should(Conditions.statusCode(200));
+                .should(conditions.statusCode(200));
     }
 }
