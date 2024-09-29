@@ -109,7 +109,7 @@ public class PetTest {
         petService.createPet(pet)
                 .should(conditions.statusCode(200));
 
-        pet.setId(908);
+        pet.setId(DataGenerator.generateFullDataPet().getId());
 
         petService.updatePet(pet)
                 .should(conditions.statusCode(200));

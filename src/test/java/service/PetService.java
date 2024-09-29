@@ -28,6 +28,14 @@ public class PetService {
                 .then());
     }
 
+    public AssertableResponse getPetByStatus(Status petStatus) {
+        return new AssertableResponse(given().contentType(ContentType.JSON)
+                .header("api_key", "12345")
+                .pathParams("petStatus", petStatus)
+                .get("/pet/findByStatus")
+                .then());
+    }
+
     public AssertableResponse deletePet(int petId) {
         return new AssertableResponse(given().contentType(ContentType.JSON)
                 .header("api_key", "12345")
