@@ -96,7 +96,7 @@ public class PetTest {
     }
 
     @Test
-    @Description("Загружается фотография питомца")
+    @Description("Загружается фотография питомца по ID")
     void uploadPetImage(){
         Pet pet = DataGenerator.generateFullDataPet();
         File file = new File("src/test/resources/Chainsaw-Man.jpg");
@@ -107,5 +107,20 @@ public class PetTest {
 
         petService.uploadImage(petId, file)
                 .should(conditions.statusCode(200));
+    }
+
+    @Test
+    @Description("Проверка кода ответа при запросу Put")
+    void uploadPetCheck() {
+        Pet pet = DataGenerator.generateFullDataPet();
+        int petId = petService.createPet(pet)
+                .should(conditions.statusCode(200))
+                .as(Pet.class).getId();
+
+        Pet petNew = petService.updatePet(pet)
+                .should(conditions.statusCode(200))
+                .as(Pet.class);
+
+        Assertions.assertEquals(pet, petNew);
     }
 }
