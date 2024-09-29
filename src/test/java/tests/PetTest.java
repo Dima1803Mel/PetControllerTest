@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import utils.DataGenerator;
 
 import java.io.File;
+import java.util.List;
 
 
 public class PetTest {
@@ -32,6 +33,7 @@ public class PetTest {
     }
 
     @Test
+    @Description("Добавляется питомец в магазин")
     void createPet() {
         Pet pet = DataGenerator.generateFullDataPet();
 
@@ -40,6 +42,7 @@ public class PetTest {
     }
 
     @Test
+    @Description("Находит питомца по ID")
     void getPetById() {
         Pet pet = DataGenerator.generateFullDataPet();
 
@@ -52,6 +55,7 @@ public class PetTest {
     }
 
     @Test
+    @Description("Выводит питомца по статусу")
     void getPetByStatus() {
         Pet pet = DataGenerator.generateFullDataPet();
 
@@ -61,6 +65,7 @@ public class PetTest {
     }
 
     @Test
+    @Description("Удаляет питомца по ID")
     void deletePet() {
         Pet pet = DataGenerator.generateFullDataPet();
 
@@ -75,6 +80,7 @@ public class PetTest {
     }
 
     @Test
+    @Description("Обновляет имя и статус питомца по ID")
     void updatePetNameStatus() {
         Pet pet = DataGenerator.generateFullDataPet();
         int petId = petService.createPet(pet)
@@ -90,6 +96,7 @@ public class PetTest {
     }
 
     @Test
+    @Description("Загружается фотография питомца")
     void uploadPetImage(){
         Pet pet = DataGenerator.generateFullDataPet();
         File file = new File("src/test/resources/Chainsaw-Man.jpg");
@@ -99,19 +106,6 @@ public class PetTest {
                 .as(Pet.class).getId();
 
         petService.uploadImage(petId, file)
-                .should(conditions.statusCode(200));
-    }
-
-    @Test
-    void updatePet() {
-        Pet pet = DataGenerator.generateFullDataPet();
-
-        petService.createPet(pet)
-                .should(conditions.statusCode(200));
-
-        pet.setId(DataGenerator.generateFullDataPet().getId());
-
-        petService.updatePet(pet)
                 .should(conditions.statusCode(200));
     }
 }

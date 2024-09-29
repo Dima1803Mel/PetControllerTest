@@ -1,6 +1,7 @@
 package tests;
 
 import Assertions.conditions;
+import io.qameta.allure.Description;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -24,31 +25,17 @@ public class PetNegativeTest {
         petService = new PetService();
     }
 
-//    @Test
-//    void createPet() {
-//
-//    }
 
     @Test
+    @Description("Обращается к несуществующей Id")
     void getNonExcistentId() {
-        petService.getPetById(-50)
+        petService.getPetById(DataGenerator.generateFullDataPet().getId())
                 .should(conditions.statusCode(404));
     }
 
-//    @Test
-//    void getNonExcistentStatus() {
-//        petService.getPetByStatus(Status.sold)
-//                .should(conditions.statusCode(400));
-//    }
-
-//    @Test
-//    void putPetNotFound() {
-//        Pet pet = DataGenerator.generateFullDataPet();
-//        petService.updatePet(pet)
-//                .should(conditions.statusCode(404));
-//    }
 
     @Test
+    @Description("Удаляет несуществующего питомца из магазина по неверному ID")
     void deletePetNotFound() {
         petService.deletePet(DataGenerator.generateFullDataPet().getId())
                 .should(conditions.statusCode(404));
