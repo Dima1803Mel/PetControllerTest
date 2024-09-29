@@ -13,7 +13,6 @@ public class StatusCodeCondition implements Condition {
     @Override
     public void check(ValidatableResponse response) {
         int statusCode = response.extract().statusCode();
-
         Assertions.assertEquals(expectedStatusCode, statusCode);
     }
 }

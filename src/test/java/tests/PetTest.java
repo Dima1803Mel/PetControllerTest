@@ -1,6 +1,8 @@
 package tests;
 
 import Assertions.conditions;
+import io.qameta.allure.*;
+import lombok.CustomLog;
 import models.info.ApiResponse;
 import models.pet.Pet;
 import models.pet.Status;
@@ -22,7 +24,10 @@ public class PetTest {
     @BeforeAll
     static void setUp() {
         RestAssured.baseURI = "https://petstore.swagger.io/v2/pet";
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        RestAssured.filters(
+                new RequestLoggingFilter(),
+                new ResponseLoggingFilter()
+        );
         petService = new PetService();
     }
 
@@ -44,7 +49,15 @@ public class PetTest {
 
         petService.getPetById(petId)
                 .should(conditions.statusCode(200));
+    }
 
+    @Test
+    void getPetByStatus() {
+        Pet pet = DataGenerator.generateFullDataPet();
+
+        Status status = petService.createPet(pet)
+                .should(conditions.statusCode(200))
+                .as(Pet.class).getStatus();
     }
 
     @Test
@@ -86,6 +99,19 @@ public class PetTest {
                 .as(Pet.class).getId();
 
         petService.uploadImage(petId, file)
+                .should(conditions.statusCode(200));
+    }
+
+    @Test
+    void updatePet() {
+        Pet pet = DataGenerator.generateFullDataPet();
+
+        petService.createPet(pet)
+                .should(conditions.statusCode(200));
+
+        pet.setId(908);
+
+        petService.updatePet(pet)
                 .should(conditions.statusCode(200));
     }
 }
